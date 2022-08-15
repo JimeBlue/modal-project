@@ -1,23 +1,24 @@
 <template>
   <div class="backdrop">
-    <div class="modal">
-      <h1 class="modal__heading">Modal Title</h1>
-      <p>modal content</p>
+    <!-- EXPLANATION: conditionally adding the class sale, if the prop theme equals sale -->
+    <div class="modal" :class="{ sale: theme === 'sale' }">
+      <h1 class="modal__heading">{{ header }}</h1>
+      <p>{{ text }}</p>
+      <p>{{ views }}</p>
     </div>
   </div>
 </template>
+<script>
+// EXPLANATION:  To use the props passed from App:
+// 1) Tell Vue that this component should accept a certain prop. I do that by creating a component object with a property called props, which will have an array as a value with the names of all the props this component will be accepting
+// Use the prop inside the template. In this case, I´m using it inside the <h1>
 
-<style scoped>
-/* EXPLANATION: by default the styles affect all the elements throught the App. So, if I style an <h1> here, the same style will be applied to an <h1> in App. In oder for the styles to be applied only inside a component there are two options
+export default {
+  props: ['header', 'text', 'theme'],
+};
+</script>
 
-1) I can add the attribute scoped to <style>. This has the disadvantage that it affects performance, since Vue gives the style and the element a data number. Explanation: https://www.youtube.com/watch?v=KM1U6DqZf8M&list=PL4cUxeGkcC9hYYGbV60Vq3IXYNfDk8At1&index=5
-
-2) I can make the style selector more specific, e.g using BEM classes
-
-*/
-
-/* EXPLANATION: If I have global styles, I can put them inside the folder assets, in the a folder global.css. In order to use the global styles I need to import global.css in main.js*/
-
+<style>
 .modal {
   width: 400px;
   padding: 20px;
@@ -32,14 +33,18 @@
   width: 100%;
   height: 100%;
 }
-/* EXAMPLE: 1) */
-h1 {
+
+.modal__heading {
   color: #03cfb4;
   border: none;
   padding: 0;
 }
-/* EXAMPLE: 2) */
-.modal__heading {
-  color: blue;
+
+.modal.sale {
+  background: crimson;
+  color: white;
+}
+.modal.sale.h1 {
+  color: white;
 }
 </style>
