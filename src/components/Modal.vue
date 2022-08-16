@@ -1,10 +1,9 @@
 <template>
+  <!-- EXPLANATION: add on click function to close modal when clicking the backdrop. IMP: we use the same click event for both modals -->
   <div class="backdrop" @click.self="closeModal">
     <div class="modal" :class="{ sale: theme === 'sale' }">
-      <!-- EXPLANATION: here I´m receiving the template (slot) I passed from App and outputting it -->
       <slot></slot>
       <div class="actions">
-        <!-- EXPLANATION: Output the name slot, using the slot tag with the name attribute, which will have as a value the same name we gave to it when we created it in App -->
         <slot name="links"></slot>
       </div>
     </div>
@@ -14,6 +13,7 @@
 export default {
   props: ['theme'],
   methods: {
+    //  We emit, we fired the custom even
     closeModal() {
       this.$emit('close');
     },
