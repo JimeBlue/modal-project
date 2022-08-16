@@ -1,5 +1,4 @@
 <template>
-  <!-- EXPLANATION: add on click function to close modal when clicking the backdrop. IMP: we use the same click event for both modals -->
   <div class="backdrop" @click.self="closeModal">
     <div class="modal" :class="{ sale: theme === 'sale' }">
       <slot></slot>
