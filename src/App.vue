@@ -1,14 +1,17 @@
 <template>
   <h1>{{ title }}</h1>
-  <!-- EXPLANATION: add an attribute to a component to pass props, in this case I add the attribute header and I pass a string to the component. EXAMPLE:       header="Sign up for the giveaway!"
-    text="Grab your ninja swag for half price" 
-    IMP: the name of the attribute can be anything I want -->
-  <!-- EXPLANATION: if I want to pass a value other than a string as prop or a string that it is inside a variable in the data object of App, I need to add a data bind to the component. I do that using a semicolon before the attribute name. In this case :header="header". IMP: this is the most common way of passing props -->
-  <!-- EXPLANATION: if I want conditionally add specific styles, I can pass property, in this case theme="sale". This explanation continues in Module -->
-  <Modal :header="header" :text="text" theme="sale" />
+  <p>Welcome...</p>
+  <!-- EXPLANATION: put the modal in a div with the directive v-if, to only show the modal if showModal is true -->
+  <div v-if="showModal">
+    <!-- EXPLANATION:  @close="toggleModal" is the custom event that listents the call from the Modal.vue component. Wheneven this call is listened the toggleModal function run, closing the modal-->
+    <Modal :header="header" :text="text" theme="sale" @close="toggleModal" />
+  </div>
+  <!-- EXPLANATION: add button to open the modal by calling the function toggleModal on click-->
+  <button @click="toggleModal">open modal</button>
 </template>
 
 <script>
+// EXPLANATION: add the property showModal to dynamically output the modal (false we don´t show it, true we show it)
 import Modal from './components/Modal';
 export default {
   name: 'App',
@@ -18,8 +21,14 @@ export default {
       title: 'My fist Vue app 😇 ',
       header: 'Sign up for the giveaway!',
       text: 'Grab your ninja swag for half price',
-      views: '1000 views',
+      showModal: false,
     };
+  },
+  methods: {
+    // EXPLANATION: this function reverse the the value of the variable showModal
+    toggleModal() {
+      this.showModal = !this.showModal;
+    },
   },
 };
 </script>

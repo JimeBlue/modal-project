@@ -1,6 +1,6 @@
 <template>
-  <div class="backdrop">
-    <!-- EXPLANATION: conditionally adding the class sale, if the prop theme equals sale -->
+  <!-- EXPLANATION: add on click function to close modal when clicking the backdrop -->
+  <div class="backdrop" @click="closeModal">
     <div class="modal" :class="{ sale: theme === 'sale' }">
       <h1 class="modal__heading">{{ header }}</h1>
       <p>{{ text }}</p>
@@ -9,12 +9,16 @@
   </div>
 </template>
 <script>
-// EXPLANATION:  To use the props passed from App:
-// 1) Tell Vue that this component should accept a certain prop. I do that by creating a component object with a property called props, which will have an array as a value with the names of all the props this component will be accepting
-// Use the prop inside the template. In this case, I´m using it inside the <h1>
-
+// EXPLANATION: we want to close the modal when the backdrop is click, which is in this component. But the logic with the function toggleModal to open and close the modal is in App. We need to use a custom event. A custom event can be fired from a component and be listened to from the parent component.
+// 1) We emit, we fired the custom event inside the closeModal function. this.$emit(''); emit is a function and the argument we pass in this function will be the name of the event we want to emit. This name can be anything we want as it is a custom function this.$emit('close');
+// 2) In App the custom event will be listened inside the <Modal /> component use, with @close="toggleModal"
 export default {
   props: ['header', 'text', 'theme'],
+  methods: {
+    closeModal() {
+      this.$emit('close');
+    },
+  },
 };
 </script>
 
