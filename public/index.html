@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html lang="">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
     <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong
+      >
     </noscript>
     <div id="app"></div>
-    <!-- built files will be auto injected -->
+    <!-- EXPLANATION: all the modals of my app will be placed here not inside of the div with id app. When the modals are rendered inside #app teleport it inside the div .modals-->
+    <!-- EXPLANATION: how to do it
+    1)Find where the modals are being rendered, in this case, App.vue 
+    2) Replace the <div> tag with the teleport component tag <teleport>
+    3)  Add the "to" attribute to <teleport> to tell it where we want it to be teleported. The value of the "to" attribute can be an css selector like a class or id. EXAMPLE: to=".modals"
+      -->
+    <div class="modals"></div>
   </body>
 </html>

@@ -1,13 +1,9 @@
 <template>
-  <!-- EXPLANATION: CHALLENGE - CREATE ANOTHER MODAL
-1)Create an extra button to open a different modal
-2)Use the same modal component but pass in a different template (slot)
-3)Use a different method (e.g toggleModalTwo()) and data (e.g showModalTwo)
--->
+  <!-- EXPLANATION: teleport is a nue feature of Vue 3 and it lets us teleport some content that we make inside app to a different place in the dom entirely. This place can be outside the scope of the view app itself. EXAMPLE: it may be that I want to put all of the modals of my app in a div at the bottom of index.html (go to index.html) -->
   <h1>{{ title }}</h1>
   <p>Welcome...</p>
 
-  <div v-if="showModal">
+  <teleport to=".modals" v-if="showModal">
     <Modal theme="sale" @close="toggleModal">
       <template v-slot:links>
         <a href="#">sign up now</a>
@@ -16,16 +12,14 @@
       <h1>Ninja Giveaway!</h1>
       <p>Grab your ninja swag for half the price!</p>
     </Modal>
-  </div>
+  </teleport>
 
-  <!-- EXPLANATION: put the new modal in a div with the directive v-if, to only show the modal if showModalTwo is true -->
-  <div v-if="showModalTwo">
-    <!-- EXPLANATION: add button to open the new modal by calling the function toggleModaltwo on click-->
+  <teleport to=".modals" v-if="showModalTwo">
     <Modal @close="toggleModalTwo">
       <h1>Sign up to the newsletter</h1>
       <p>For updates and promo codes</p>
     </Modal>
-  </div>
+  </teleport>
 
   <button @click="toggleModal">open modal</button>
   <button @click="toggleModalTwo">open modal two</button>
@@ -40,7 +34,6 @@ export default {
     return {
       title: 'My fist Vue app 😇 ',
       showModal: false,
-      // EXPLANATION: add the property showModalTwo to dynamically output the modal (false we don´t show it, true we show it)
       showModalTwo: false,
     };
   },
@@ -48,7 +41,6 @@ export default {
     toggleModal() {
       this.showModal = !this.showModal;
     },
-    // EXPLANATION: this function reverse the the value of the variable showModalTwo
     toggleModalTwo() {
       this.showModalTwo = !this.showModalTwo;
     },
