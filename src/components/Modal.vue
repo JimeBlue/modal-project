@@ -1,18 +1,18 @@
 <template>
-  <!-- EXPLANATION: THE PROBLEM. We want to the modal to be closed when the user clicks on the backdrop itself, the  not when the user the clicks on other element inside the backdrop, like the modal. But the other elements inside the backdrop are children of the backdrop and therefore part of it. So, we want to restrict the click event to just the backdrop element and not when the user clicks on the modal inside it-->
-  <!-- EXPLANATION: THE SOLUTION: use a click event modifier, which will modify how the click event is register and when we react to it -->
-  <!-- EXPLANATION: THE IMPLEMENTATION: I added the self modifier to the click event below, so that the click event will only have effect if the user clicks on the backdrop and not somewhere else-->
   <div class="backdrop" @click.self="closeModal">
     <div class="modal" :class="{ sale: theme === 'sale' }">
-      <h1 class="modal__heading">{{ header }}</h1>
-      <p>{{ text }}</p>
-      <p>{{ views }}</p>
+      <!-- EXPLANATION: here I´m receiving the template (slot) I passed from App and outputting it -->
+      <slot></slot>
+      <div class="actions">
+        <!-- EXPLANATION: Output the name slot, using the slot tag with the name attribute, which will have as a value the same name we gave to it when we created it in App -->
+        <slot name="links"></slot>
+      </div>
     </div>
   </div>
 </template>
 <script>
 export default {
-  props: ['header', 'text', 'theme'],
+  props: ['theme'],
   methods: {
     closeModal() {
       this.$emit('close');
@@ -43,11 +43,33 @@ export default {
   padding: 0;
 }
 
+.modal .actions {
+  text-align: center;
+  margin: 30px 0 10px 0;
+}
+
+.modal .actions a {
+  color: #333;
+  padding: 8px;
+  border: 1px solid #eee;
+  text-decoration: none;
+  border-radius: 4px;
+  margin: 10px;
+}
+
 .modal.sale {
   background: crimson;
   color: white;
 }
 .modal.sale.h1 {
+  color: white;
+}
+
+.modal.sale .actions {
+  color: white;
+}
+
+.modal.sale .actions a {
   color: white;
 }
 </style>
