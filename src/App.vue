@@ -1,16 +1,9 @@
 <template>
-  <!-- EXPLANATION: SLOTS: alernative to props to pass more complex information, i.e templates to reusable components. The implementation is as follow
-  1) We can´t use a self closing component tag, we need to open and close it
-  2) Inside <Modal> </Modal> pass a template. This template is know as slot
-  3) Use the slot inside Modal.vue
-  -->
-  <!-- EXPLANATION: we can also pass name slots, which will have a specific structure. I.e, If I want a slot to have something different inside from the others, I will use a name slot inside of it. To use them:
-  1) I use the template tag when I want to pass them
-  2)Put inside the template tag whatever html I want to pass
-  3) Give the template a name, using the slot directive (<template v-slot:links>)
-  4) Output the name slot in Modal.vue
-  -->
-
+  <!-- EXPLANATION: CHALLENGE - CREATE ANOTHER MODAL
+1)Create an extra button to open a different modal
+2)Use the same modal component but pass in a different template (slot)
+3)Use a different method (e.g toggleModalTwo()) and data (e.g showModalTwo)
+-->
   <h1>{{ title }}</h1>
   <p>Welcome...</p>
 
@@ -25,7 +18,17 @@
     </Modal>
   </div>
 
+  <!-- EXPLANATION: put the new modal in a div with the directive v-if, to only show the modal if showModalTwo is true -->
+  <div v-if="showModalTwo">
+    <!-- EXPLANATION: add button to open the new modal by calling the function toggleModaltwo on click-->
+    <Modal @close="toggleModalTwo">
+      <h1>Sign up to the newsletter</h1>
+      <p>For updates and promo codes</p>
+    </Modal>
+  </div>
+
   <button @click="toggleModal">open modal</button>
+  <button @click="toggleModalTwo">open modal two</button>
 </template>
 
 <script>
@@ -36,14 +39,18 @@ export default {
   data() {
     return {
       title: 'My fist Vue app 😇 ',
-      header: 'Sign up for the giveaway!',
-      text: 'Grab your ninja swag for half price',
       showModal: false,
+      // EXPLANATION: add the property showModalTwo to dynamically output the modal (false we don´t show it, true we show it)
+      showModalTwo: false,
     };
   },
   methods: {
     toggleModal() {
       this.showModal = !this.showModal;
+    },
+    // EXPLANATION: this function reverse the the value of the variable showModalTwo
+    toggleModalTwo() {
+      this.showModalTwo = !this.showModalTwo;
     },
   },
 };
