@@ -15,13 +15,43 @@
         continue.</strong
       >
     </noscript>
-    <div id="app"></div>
-    <!-- EXPLANATION: all the modals of my app will be placed here not inside of the div with id app. When the modals are rendered inside #app teleport it inside the div .modals-->
-    <!-- EXPLANATION: how to do it
-    1)Find where the modals are being rendered, in this case, App.vue 
-    2) Replace the <div> tag with the teleport component tag <teleport>
-    3)  Add the "to" attribute to <teleport> to tell it where we want it to be teleported. The value of the "to" attribute can be an css selector like a class or id. EXAMPLE: to=".modals"
-      -->
-    <div class="modals"></div>
+    <div id="app">
+      <!-- CONTENT INDEX: 
+
+*Template refs: 
+  -Grabing elements from the DOM. Grab an input and element and give it the class active on click of a button
+
+*Multiple component: 
+  -Creating a component and using it inside App.vue
+
+*Scoped and global CSS: 
+  -Add global and modal specific styles to an app
+
+*Props:
+  -Passing data from the parent to child component. 
+  -Passing the text that goes in the child component.
+  -Style a component differently depending on its theme
+
+*Emitting custom events: 
+  -Show and hide a modal or any other component.
+  -Use onClick calling a function that is not on the same component but in the parent component
+
+*Click event modifiers: 
+   -Close the modal only when the user clicks on the backdrop not on the modal itself
+   -Add a special modification to the click event, like for example open a modal if the user clicks on a button and press the key alt at the same time
+
+*Slots: 
+   -Create the whole text that a reusable compononet should have by using <template>, instead passing props
+  -Add a specific text to only one of the reusable components
+
+*Challenge: create another modal: 
+   -Use a component that was already created with another content but the same functionallity. In other words, make use of a resusable component
+
+*Using Teleport: 
+   -Render components in a div different that #app
+   
+   
+-->
+    </div>
   </body>
 </html>
