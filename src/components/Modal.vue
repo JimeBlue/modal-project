@@ -1,6 +1,8 @@
 <template>
-  <!-- EXPLANATION: add on click function to close modal when clicking the backdrop -->
-  <div class="backdrop" @click="closeModal">
+  <!-- EXPLANATION: THE PROBLEM. We want to the modal to be closed when the user clicks on the backdrop itself, the  not when the user the clicks on other element inside the backdrop, like the modal. But the other elements inside the backdrop are children of the backdrop and therefore part of it. So, we want to restrict the click event to just the backdrop element and not when the user clicks on the modal inside it-->
+  <!-- EXPLANATION: THE SOLUTION: use a click event modifier, which will modify how the click event is register and when we react to it -->
+  <!-- EXPLANATION: THE IMPLEMENTATION: I added the self modifier to the click event below, so that the click event will only have effect if the user clicks on the backdrop and not somewhere else-->
+  <div class="backdrop" @click.self="closeModal">
     <div class="modal" :class="{ sale: theme === 'sale' }">
       <h1 class="modal__heading">{{ header }}</h1>
       <p>{{ text }}</p>
@@ -9,9 +11,6 @@
   </div>
 </template>
 <script>
-// EXPLANATION: we want to close the modal when the backdrop is click, which is in this component. But the logic with the function toggleModal to open and close the modal is in App. We need to use a custom event. A custom event can be fired from a component and be listened to from the parent component.
-// 1) We emit, we fired the custom event inside the closeModal function. this.$emit(''); emit is a function and the argument we pass in this function will be the name of the event we want to emit. This name can be anything we want as it is a custom function this.$emit('close');
-// 2) In App the custom event will be listened inside the <Modal /> component use, with @close="toggleModal"
 export default {
   props: ['header', 'text', 'theme'],
   methods: {
